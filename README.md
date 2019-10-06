@@ -12,7 +12,7 @@ How to setup:
  Install Elasticsearch 7.2 + Kibana 7.3
  Configure firewall to allow access from filebeat host to elasticsearch service
 
-<h4> Filebeat + module modsecurity2 installation <h4>
+<h4> Filebeat + module modsecurity2 installation </h4>
 2. Configuration Filebeat (7.x recommended. Older versions may not work)
  <p> copy filebeat/module/modsecurity2 into /usr/share/filebeat/module
  <p> copy filebeat/etc/filebeat/modules.d/modsecurity2.yml.disabled into /etc/filebeat/modules.d
