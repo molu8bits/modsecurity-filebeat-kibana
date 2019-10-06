@@ -1,0 +1,19 @@
+filebeat.inputs:
+- type: log
+  enabled: false
+  paths:
+    - /var/log/*.log
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+setup.template.settings:
+  index.number_of_shards: 1
+setup.kibana:
+output.elasticsearch:
+  hosts: ["ELASTICSEARCH_HOST:9200"]
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+setup.template.fields: /etc/filebeat/fields.yml
+setup.template.json.enabled: false
+setup.template.overwrite: true

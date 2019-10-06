@@ -1,0 +1,11 @@
+# Module: modsecurity2
+# Docs: https://github.com/molu8bits/modsecurity-filebeat-kibana/README.md
+
+- module: modsecurity2
+  # All logs
+  audit:
+    enabled: true
+
+    # Set custom paths for the log files. If left empty,
+    # Filebeat will choose the paths depending on your OS.
+    #var.paths:
