@@ -1,6 +1,6 @@
 # Modsecurity-filebeat-kibana
 
-## draft
+## draft2
 
 Dashboard Modsecurity2_Overview
 ![](_images/modsecurity_overview_02.png)
@@ -9,7 +9,7 @@ Filebeat module for Modsecurity2 audit log + Kibana dashboards.
 
 How to setup:
 <h4> Elasticsarch and Kibana </h4>
- Install Elasticsearch 7.2 + Kibana 7.3
+ Install Elasticsearch 7.3.2 + Kibana 7.3.2 (older version could have problems with import the dashhoard)
  Configure firewall to allow access from filebeat host to elasticsearch service
 
 <h4> Filebeat + module modsecurity2 installation </h4>
@@ -22,15 +22,14 @@ How to setup:
 
 <h4> Kibana configuration </h4>
 3. Import objects into Kibana (via GUI: Management -> Saved Objects -> import):
-   <p> Modsecurity2_Overview.json
+   <p> Modsecurity2_Overview.ndjson
 
 
 Version is in Draft mode, present current status of the module.
 TODO List:
-1. Add current dashboard definition as json
-2. Add TOP 10 Attacks intercepted
-3. Add TOP 20 Rule ID hits ( + split messages into separate fields)
-4. Add Modsecurity3 support (probably as a separate module)
-5. Add DOC part (e.g. Modsecurity2 reference configuration)
-6. Add module directory
+1. Add TOP 10 Attacks intercepted
+2. Add TOP 20 Rule ID hits ( + split messages into separate fields)
+3. Add Modsecurity3 support (probably as a separate module)
+4. Add DOC part (e.g. Modsecurity2 reference configuration) - ( Wiki ?)
+
 

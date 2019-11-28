@@ -1,0 +1,73 @@
+{ "description": "Pipeline for parsing Modsecurity2 audit logs"
+, "processors":
+  [ { "script":
+      { "lang": "painless"
+      , "source": "ctx['modsecurity2'] = new HashMap(); ctx['modsecurity2']['audit'] = ctx['json']; ctx.remove('json');"
+      }
+    }
+  , {"convert":
+      {"field": "modsecurity2.audit.src_ip"
+      ,"target_field": "source_ecs.ip"
+      ,"type": "string"
+      ,"ignore_missing": true
+      }
+    }
+  , {"convert":
+      {"field": "modsecurity2.audit.src_port"
+      ,"target_field": "source_ecs.port"
+      ,"type": "integer"
+      ,"ignore_missing": true
+      }
+    }
+  , {"convert":
+      {"field": "modsecurity2.audit.dest_ip"
+      ,"target_field": "destination.ip"
+      ,"type": "string"
+      ,"ignore_missing": true
+      }
+    }
+  , { "rename":
+      { "field": "@timestamp"
+      , "target_field": "read_timestamp"
+      , "ignore_missing": true
+      }
+    }
+  , { "gsub":
+      { "field": "modsecurity2.audit.transaction.time"
+      , "pattern": "\/"
+      , "replacement": "-"
+      }
+    }
+
+  , { "date":
+      { "field": "modsecurity2.audit.transaction.time"
+      , "target_field": "@timestamp"
+      , "formats": ["dd-MMM-yyyy:HH:mm:ss Z", "dd-MMM-yyyy:H:m:s Z"]
+      }
+    }
+  , { "geoip":
+      { "field": "modsecurity2.audit.transaction.remote_address"
+      , "target_field": "modsecurity2.audit.geoip"
+      , "ignore_missing": false
+      }
+    }
+  , { "geoip":
+      { "field": "destination.ip"
+      , "target_field": "destination.geo"
+      , "ignore_missing": true
+      }
+    }
+
+  ]
+, "on_failure":
+  [ { "set" :
+      { "field" : "error.message"
+      , "value" : "{{ _ingest.on_failure_message }}"
+      }
+    }, { "set" :
+      { "field" : "@timestamp"
+      , "value" : "{{ read_timestamp }}"
+      }
+    }
+  ]
+}

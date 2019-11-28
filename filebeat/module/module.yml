@@ -1,0 +1,3 @@
+dashboards:
+- id: Filebeat-Modsecurity2-Dashboard
+  file: Modsecurity2_Overview.ndjson
